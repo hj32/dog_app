@@ -1,18 +1,16 @@
-# Capstone Project
+# Capstone Project - Dog Identification App
 
 ## Contents
 
 1. [Installation](#installation)
-2. [Project Motivation](##Project-Motivation)
-3. [Project Overview](##Project-Overview)
-4. [Problem Statement](##Problem-Statement)
-5. [File Descriptions](#file-descriptions)
-6. [Methodology](##Methodology)
-7. [Analysis](##Analysis)
-8. [Results](#results)
-9. [Conclusion](##Conclusion)
-10. [Licensing, Authors, and Acknowledgements](#Licensing,-Authors,-Acknowledgements)
-
+2. [Project Motivation](#Project-Motivation)
+3. [Project Definition](#Project-Definition)
+4. [File Descriptions](#file-descriptions)
+5. [Methodology](#Methodology)
+6. [Analysis](#Analysis)
+7. [Results](#results)
+8. [Conclusion](#Conclusion)
+9. [Licensing, Authors, and Acknowledgements](#Licensing,-Authors,-Acknowledgements)
 
 ## Installation
 
