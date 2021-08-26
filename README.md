@@ -22,7 +22,7 @@ The libraries used are.
 - pandas
 - random
 - matplotlib
-- seaborn
+- [seaborn](https://seaborn.pydata.org/)
 - [glob](https://docs.python.org/3/library/glob.html)Unix style pathname pattern expansion
 - time - time utils
 - [os](https://docs.python.org/3/library/os.html) - misc operating system  interfaces
@@ -65,21 +65,21 @@ The neural networks used here are classifiers the metrics loss and  accuracy are
  
  ![Histogram Class Labels](/images/Histogram_Class_Labels60.jpg  "Histogram Class Labels")
  
- Histogram of Counts of Class Labels (images of breeds of dog available in the dataset)
+ Histogram of sample of Counts of Class Labels (images of breeds of dog available in the dataset) There are 133 classes in the dataset.
 
 ## File Descriptions
 
 Notebooks - The Jupyter notebooks are listed below
 
 - dog_app.ipynb - Main jupyter notebook
-- dog_app_2.ipnyb - Additional file 
+- dog_app_2.ipnyb - Additional file to hold visualizations using data exported by dog_app.ipynb scripts
 - dog_app_utils.py - utils for measuring accuracy of algorithms
 - metrics_utility.py - f1_score function for metrics
+- extract_bottleneck_features.py - utility for extracting bottleneck features from a file.
 
 ## DataSet
 
 The project uses the following image sets to train the algorithm these are available in the udacity classroom environment.
-
 
 
 - Dog images there are 8351 files in total
@@ -92,29 +92,46 @@ The project uses the following image sets to train the algorithm these are avail
 
 ## Methodology
 
+Data Preprocessing
 
+Implementation
+
+Refinement
 
 
 ## Analysis
 
+Data exploration
+
+Data Analysis
 
 
 ## Results
 
+Model Evaluation and Validation
+
+The imageset data has been divided into 3 sets train, validate, test.
+
 |Step   |Function       | Test Accuracy   |
 |-------|---------------|------------|
 |  1    | Detect Humans | 0.945  |
-|  1    | Detect Humans Optional | 0.995   |
+|  1    | Detect Humans Optional | 1.0 |
 |  2    | Detect Dogs  |  1.0 |
-|  3    | Create a CNN to Classify Dog Breeds (from Scratch) |0.011   |
-|  4    | Create a CNN to Classify Dog Breeds (using Transfer Learning) |0.3887   |
-|  5    | Create a CNN to Classify Dog Breeds (using Transfer Learning) |0.817    |
+|  3    | Create a CNN to Classify Dog Breeds (from Scratch) |0.02272 |
+|  4    | Create a CNN to Classify Dog Breeds (using Transfer Learning) VGG-16 |0.4163 |
+|  5    | Create a CNN to Classify Dog Breeds (using Transfer Learning) Resnet50 |0.8277 |
 |  6    | Write Your Algorithm  |-  |
-|  7    | Test Your Algorithm  | 0.89        |
+|  7    | Test Your Algorithm  | 0.89 |
+
+Justification
 
 See this [blog](https://www.medium.com) for the results of this project
 
+
 ## Conclusion
+
+Creating a model that will predict the breed of a dog is a challenge. Similarities between breeds make this task difficult.
+Deep CNN models can perform this task supprisingly well.
 
 ## Licensing, Authors, Acknowledgements
 
