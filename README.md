@@ -23,7 +23,7 @@ The libraries used are.
 - random
 - matplotlib
 - [seaborn](https://seaborn.pydata.org/)
-- [glob](https://docs.python.org/3/library/glob.html)Unix style pathname pattern expansion
+- [glob](https://docs.python.org/3/library/glob.html) Unix style pathname pattern expansion
 - time - time utils
 - [os](https://docs.python.org/3/library/os.html) - misc operating system  interfaces
 - [cv2](https://github.com/opencv/opencv-python)
@@ -45,6 +45,7 @@ The libraries used are.
 
 Convolutional Neural Networks can be applied to the analysis of images. CNNs are regulrised multilayer perceptron. These models can be applied to the classification of images of specific subjeccts 
 This project demonstrates the use of CNNs to classify images of human faces, and of Dogs. Provided with a set of images of dogs of different breeds we will build a model to identify the breed of a dog givent its image.
+I want to build models that can perform the dog breed classification task as well as is possible, performance will be measured using suitable metrics.
 
 ### Problem Statement
 
@@ -52,18 +53,22 @@ This project demonstrates the use of CNNs to classify images of human faces, and
 2. Write an algorithm to detect dogs in images.
 3. Write an algorithm ot identify a variety of different breeds of dogs. This is a difficult problem because the appearance of some breeds are almost identical.
 
+We will use CNN models to implement solutions to these problems. Using machine leaning algorithms, and also transfer learning based on existing image sets trained for this purpose. Using these models we want to achieve model performance where the majority of classifications are correct. Ideally an accuracy score in excess of 80% would be good.
+
 ### Metrics
 
+One strategy to measure the performance of models for a given task is to develop a model and establish a base line of performance. Further models can  be developed with the aim of surpassing the baseline performance that has been established. 
+This strategy requires a single metric that can be applied across a series of models that potentially have different levels of performance. 
+
 The neural networks used here are classifiers the metrics loss and  accuracy are used to qualify the performance of these
- CNN algorithms. Accuracy is a useful metric because it is easy to calculate, easy to interpret, and is a single number to
- summarize the model’s capability.
+ CNN algorithms. Accuracy is a useful metric because it is easy to calculate, easy to interpret, and is a single number to summarize the model's capability.
 
  We need to ensure that the target classes are not severely imbalanced, imbalanced target classes within the sample data can 
- invalidate accuracy as a metric.  In this case some of the classes i.e. are representd three time as many in the dataset.
- However since the task of classifying dogs is so difficult the errors involved make the errors concerned due to imbalanced classes insignificant.
+ invalidate accuracy as a metric.  In this case some of the classes i.e., are represented three time as many in the dataset.
+ However, since the task of classifying dogs is so difficult the errors involved make the errors concerned due to imbalanced classes insignificant.
  So accuracy has been used as a metric here.
  
- ![Histogram Class Labels](/images/Histogram_Class_Labels60.jpg  "Histogram Class Labels")
+ ![Histogram Class Labels](/images/Histogram_Class_Histo_h.jpg  "Histogram Class Labels")
  
  Histogram of sample of Counts of Class Labels (images of breeds of dog available in the dataset) There are 133 classes in the dataset.
 
@@ -77,14 +82,14 @@ Notebooks - The Jupyter notebooks are listed below
 - metrics_utility.py - f1_score function for metrics
 - extract_bottleneck_features.py - utility for extracting bottleneck features from a file.
 
-## DataSet
+## Dataset
 
 The project uses the following image sets to train the algorithm these are available in the udacity classroom environment.
 
 
 - Dog images there are 8351 files in total
 [dog dataset](https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/dogImages.zip) 
-- Human images there are 13233 files in total. LFW imageset.
+- Human images there are 13233 files in total. LFW image set.
 [human dataset](https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/lfw.zip) 
 - VGG-16 bottleneck features
 [VGG-16 bottleneck features](https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/DogVGG16Data.npz)
@@ -92,34 +97,66 @@ The project uses the following image sets to train the algorithm these are avail
 
 ## Methodology
 
-Data Preprocessing
+Data Pre-processing
+
+Image data needs to be scaled to an appropriate  size in terms of both  x and y dimensions and also i the number of bytes used to store and manipulate if 
+resources issues are to be avoided. The image data needs to be presented to the input layer of the keras model as a 4th order tensor in format (nsamples, x_dim, y,dim, channels)
+By default keras will accept this format it can be changed if another format e.g. channels first. (nsamples, channels, x_dim, y_dim)
+Typically we will present an algorithm as a baseline solution to a problem and then present progressive improvements, if improvements can be made.
 
 Implementation
 
+The dog_app.ipynb notebook is divided into 6 steps.
+
+|Step | Algorithm|
+|--------|----------------------------|
+|-|-|
+|Step 1 | - Human Detector algorithm    |
+|Step 2 | - Dog Detector Algorithm     |
+|Step 3 | - Create a CNN to Classify Dog Breeds (from Scratch)    |
+|Step 4 | - Use a CNN to Classify Dog Breeds    |
+|Step 5 | - Human Detector algorithm    |
+|Step 6 | - Dog Detector Algorithm     |
+
+I used keras Sequential models built with suitable layers for CNN networks. The data is fitted to the model using a categorical entropy lost function and Adam optimizer.  A softmax activation is used to make the classification, this is the only activation recommended for a categorical cross entropy loss function.
+
 Refinement
+
+During the evaluation of the models presented here I have decided to change the optimization from 'rmsprop' to 'adam' this reduces the variance of the loss and accuracy curves giving us smoother curves. The reduced variance in loss suggests that that choice of optimizer reduces the learning rate.
+Having looked at the behaviour of the fscore across the different models I decided to use accuracy instead.  when the accuracy of the model is ~1% the fscore is of the order of 1E-04 so it makes sense to use accuracy across all of the models to provide a comparable performance metric. In this case keras implements categorical accuracy based on the training target classes presented as one hot encoded classes, rather than binary.
 
 
 ## Analysis
 
 Data exploration
 
-Data Analysis
+See the histogram and description of the dataset and the distribution of dog breed classes.
+
+Data Visuzalization
+
+I have created some visualizations and put them in the second notebook dog_app_2.ipynb. I had trouble putting everything in one notebook.
+There are loss vs epoch and accuracy vs epoch plots for the models in steps 1,3,4,5.  There is a plot of fscore vs epoch for step 5.
+I have plotted a confusion matrix for step 5 
 
 
 ## Results
 
 Model Evaluation and Validation
 
-The imageset data has been divided into 3 sets train, validate, test.
+The imageset data has been divided into 3 sets train, validate, test. The model has been
+ scripted so that the model is trained on the train set and validated against the 
+ validation set. Finally the model is tested on the test data and an accuracy score 
+ is obtained for each model. Also for the dog breed identification algorithm that combines 
+ the dog and human detection algorithms with the dog breed classification algorithm to make a useful application.
 
 |Step   |Function       | Test Accuracy   |
 |-------|---------------|------------|
 |  1    | Detect Humans | 0.945  |
 |  1    | Detect Humans Optional | 1.0 |
 |  2    | Detect Dogs  |  1.0 |
-|  3    | Create a CNN to Classify Dog Breeds (from Scratch) |0.02272 |
+|  3    | Create a CNN to Classify Dog Breeds (from Scratch) |0.0359522 |
 |  4    | Create a CNN to Classify Dog Breeds (using Transfer Learning) VGG-16 |0.4163 |
-|  5    | Create a CNN to Classify Dog Breeds (using Transfer Learning) Resnet50 |0.8277 |
+|  5    | Create a CNN to Classify Dog Breeds (using Transfer Learning) Resnet50 |0.833732 |
 |  6    | Write Your Algorithm  |-  |
 |  7    | Test Your Algorithm  | 0.89 |
 
@@ -131,10 +168,13 @@ See this [blog](https://www.medium.com) for the results of this project
 ## Conclusion
 
 Creating a model that will predict the breed of a dog is a challenge. Similarities between breeds make this task difficult.
-Deep CNN models can perform this task supprisingly well.
+Deep CNN models can perform this task supprisingly well. Combining the dog detection algorithm with the dog breed classification algorithm to make an algoithm that can ensure the subject in an image is a dog before classification is applied enhances the overall performance by ensuring that the subject is a dog before applying the breed classification to it.
+
 
 ## Licensing, Authors, Acknowledgements
 
 The data is available under a "Creative Commons CC0 1.0 Universal (CC0 1.0) "Public Domain Dedication" license." <http://creativecommons.org/publicdomain/zero/1.0/>
 
 Thank to [neptune AI](https://neptune.ai/blog/implementing-the-macro-f1-score-in-keras) for  inspiration in implementing custom keras metrics
+
+[Keras Documentation](https://keras.io/api/)
