@@ -73,7 +73,7 @@ In this way the best weights(with lowest loss) are used for testing, the perform
  However, since the task of classifying dogs is so difficult the errors involved make the errors concerned due to imbalanced classes insignificant.
  So accuracy has been used as a metric here.
  
- ![Histogram Class Labels](/images/Histogram_Class_Histo_h.jpg  "Histogram Class Labels")
+ ![Histogram Class Labels](/images/class_histo_h.jpg  "Histogram Class Labels")
  
  Histogram of sample of Counts of Class Labels (images of breeds of dog available in the dataset) There are 133 classes in the dataset.
 
