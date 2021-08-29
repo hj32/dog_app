@@ -63,6 +63,11 @@ This strategy requires a single metric that can be applied across a series of mo
 The neural networks used here are classifiers the metrics loss and  accuracy are used to qualify the performance of these
  CNN algorithms. Accuracy is a useful metric because it is easy to calculate, easy to interpret, and is a single number to summarize the model's capability.
 
+The fit method used here uses the validation loss as a performance metric and stores the weights used by the model when the validation loss value is lowest. These weights are restored from the file to evaluate the test data. 
+In this way the best weights(with lowest loss) are used for testing, the performance in testing represents the best model can perform.
+
+![Step5 Loss Curve](/images/Step5_Loss.jpg "Step5 CNN Dog Breed Classifier Loss Curve")
+
  We need to ensure that the target classes are not severely imbalanced, imbalanced target classes within the sample data can 
  invalidate accuracy as a metric.  In this case some of the classes i.e., are represented three time as many in the dataset.
  However, since the task of classifying dogs is so difficult the errors involved make the errors concerned due to imbalanced classes insignificant.
@@ -114,8 +119,8 @@ The dog_app.ipynb notebook is divided into 6 steps.
 |Step 1 | - Human Detector algorithm    |
 |Step 2 | - Dog Detector Algorithm     |
 |Step 3 | - Create a CNN to Classify Dog Breeds (from Scratch)    |
-|Step 4 | - Use a CNN to Classify Dog Breeds    |
-|Step 5 | - Human Detector algorithm    |
+|Step 4 | - Create a CNN to Classify Dog Breeds    |
+|Step 5 | - Create a CNN to Classify Dog Breeds (using Transfer Learning)    |
 |Step 6 | - Dog Detector Algorithm     |
 
 I used keras Sequential models built with suitable layers for CNN networks. The data is fitted to the model using a categorical entropy lost function and Adam optimizer.  A softmax activation is used to make the classification, this is the only activation recommended for a categorical cross entropy loss function.
@@ -154,13 +159,16 @@ The imageset data has been divided into 3 sets train, validate, test. The model 
 |  1    | Detect Humans | 0.945  |
 |  1    | Detect Humans Optional | 1.0 |
 |  2    | Detect Dogs  |  1.0 |
-|  3    | Create a CNN to Classify Dog Breeds (from Scratch) |0.0359522 |
-|  4    | Create a CNN to Classify Dog Breeds (using Transfer Learning) VGG-16 |0.4163 |
-|  5    | Create a CNN to Classify Dog Breeds (using Transfer Learning) Resnet50 |0.833732 |
+|  3    | Create a CNN to Classify Dog Breeds (from Scratch) |0.0457 |
+|  4    | Create a CNN to Classify Dog Breeds (using Transfer Learning) VGG-16 |0.405502 |
+|  5    | Create a CNN to Classify Dog Breeds (using Transfer Learning) Resnet50 |0.837321 |
 |  6    | Write Your Algorithm  |-  |
-|  7    | Test Your Algorithm  | 0.89 |
+|  7    | Test Your Algorithm  | 0.8928 |
 
 Justification
+
+The poor performance of the from scratch model in step 3 demonstrates the difficulty of the problem.  We were able to produce a better performing model by using transfer learning using the product of deep  neural networks and significant computing power used on a large dataset, has been invested to produce the bottleneck features files used in steps 4 and 5.
+The VGG-16 and Resnet50 models are documented [here](https://keras.io/api/applications/)  By using bottleneck features most of the work has already been done for us
 
 See this [blog](https://www.medium.com) for the results of this project
 
@@ -169,6 +177,9 @@ See this [blog](https://www.medium.com) for the results of this project
 
 Creating a model that will predict the breed of a dog is a challenge. Similarities between breeds make this task difficult.
 Deep CNN models can perform this task supprisingly well. Combining the dog detection algorithm with the dog breed classification algorithm to make an algoithm that can ensure the subject in an image is a dog before classification is applied enhances the overall performance by ensuring that the subject is a dog before applying the breed classification to it.
+
+The model should perform better give more images to train on. More layers could be added to the models and the model trained for longer.
+Image augmentation is another way of improving the model and making  best use of the images available.
 
 
 ## Licensing, Authors, Acknowledgements
