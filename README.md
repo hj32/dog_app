@@ -94,7 +94,7 @@ The project uses the following image sets to train the algorithm these are avail
 
 - Dog images there are 8351 files in total
 [dog dataset](https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/dogImages.zip) 
-- Human images there are 13233 files in total. LFW image set.
+- Human images there are 13233 files in total. [Live faces in the wild(LFW)image set.](https://paperswithcode.com/dataset/lfw)
 [human dataset](https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/lfw.zip) 
 - VGG-16 bottleneck features
 [VGG-16 bottleneck features](https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/DogVGG16Data.npz)
@@ -109,7 +109,7 @@ resources issues are to be avoided. The image data needs to be presented to the 
 By default keras will accept this format it can be changed if another format e.g. channels first. (nsamples, channels, x_dim, y_dim)
 Typically we will present an algorithm as a baseline solution to a problem and then present progressive improvements, if improvements can be made.
 
-Implementation
+#### Implementation
 
 The dog_app.ipynb notebook is divided into 6 steps.
 
@@ -125,7 +125,7 @@ The dog_app.ipynb notebook is divided into 6 steps.
 
 I used keras Sequential models built with suitable layers for CNN networks. The data is fitted to the model using a categorical entropy lost function and Adam optimizer.  A softmax activation is used to make the classification, this is the only activation recommended for a categorical cross entropy loss function.
 
-Refinement
+#### Refinement
 
 During the evaluation of the models presented here I have decided to change the optimization from 'rmsprop' to 'adam' this reduces the variance of the loss and accuracy curves giving us smoother curves. The reduced variance in loss suggests that that choice of optimizer reduces the learning rate.
 Having looked at the behaviour of the fscore across the different models I decided to use accuracy instead.  when the accuracy of the model is ~1% the fscore is of the order of 1E-04 so it makes sense to use accuracy across all of the models to provide a comparable performance metric. In this case keras implements categorical accuracy based on the training target classes presented as one hot encoded classes, rather than binary.
@@ -133,11 +133,11 @@ Having looked at the behaviour of the fscore across the different models I decid
 
 ## Analysis
 
-Data exploration
+#### Data exploration
 
-See the histogram and description of the dataset and the distribution of dog breed classes.
+See the histogram and description of the dataset and the distribution of dog breed classes. There is further discussion of the content of the dataset in blog post.
 
-Data Visuzalization
+#### Data Visuzalization
 
 I have created some visualizations and put them in the second notebook dog_app_2.ipynb. I had trouble putting everything in one notebook.
 There are loss vs epoch and accuracy vs epoch plots for the models in steps 1,3,4,5.  There is a plot of fscore vs epoch for step 5.
@@ -146,7 +146,7 @@ I have plotted a confusion matrix for step 5
 
 ## Results
 
-Model Evaluation and Validation
+#### Model Evaluation and Validation
 
 The imageset data has been divided into 3 sets train, validate, test. The model has been
  scripted so that the model is trained on the train set and validated against the 
@@ -165,12 +165,12 @@ The imageset data has been divided into 3 sets train, validate, test. The model 
 |  6    | Write Your Algorithm  |-  |
 |  7    | Test Your Algorithm  | 0.8928 |
 
-Justification
+#### Justification
 
 The poor performance of the from scratch model in step 3 demonstrates the difficulty of the problem.  We were able to produce a better performing model by using transfer learning using the product of deep  neural networks and significant computing power used on a large dataset, has been invested to produce the bottleneck features files used in steps 4 and 5.
-The VGG-16 and Resnet50 models are documented [here](https://keras.io/api/applications/)  By using bottleneck features most of the work has already been done for us
+The VGG-16 and Resnet50 models are documented [here](https://keras.io/api/applications/)  By using bottleneck features most of the work has already been done for us. So the relatively small CNN model used in step3 is suppased by models with many more layers and a more intensive regieme of training that has been attempted in step3. The models have achieved the performance targets set in the text of  the projec notebook.
 
-See this [blog](https://www.medium.com) for the results of this project
+See this [blog](https://medium.com/@hj2048/using-a-cnn-algorithm-to-identify-dog-breeds-a23e6e8c04b9) for the results of this project
 
 
 ## Conclusion
@@ -189,3 +189,5 @@ The data is available under a "Creative Commons CC0 1.0 Universal (CC0 1.0) "Pub
 Thank to [neptune AI](https://neptune.ai/blog/implementing-the-macro-f1-score-in-keras) for  inspiration in implementing custom keras metrics
 
 [Keras Documentation](https://keras.io/api/)
+
+[OpenCV Documentation](https://docs.opencv.org/master/)
